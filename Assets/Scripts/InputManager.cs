@@ -1,28 +1,41 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
-    public GameObject widthInput;
-    public GameObject heightInput;
+    public GameObject widthInput, heightInput, depthInput;
     private GridManager gridManager;
-    
+
     void Awake()
     {
         gridManager = GameObject.FindObjectOfType<GridManager>();
+    }
+
+    void NullableMessage(string message)
+    {
+        if (EditorUtility.DisplayDialog("Error", message, "Ok"))
+        {
+            Debug.Log("yes");
+        }
+        else
+        {
+            Debug.Log("No");
+        }
     }
 
     public void Generate()
     {
         string _width = widthInput.GetComponent<InputField>().text;
         string _height = heightInput.GetComponent<InputField>().text;
+        string _depth = depthInput.GetComponent<InputField>().text;
+        Debug.Log(_width + "-" + _height + "-" + _depth);
 
-        if(String.IsNullOrEmpty(_width) || String.IsNullOrEmpty(_height))
+        if (String.IsNullOrEmpty(_width) || String.IsNullOrEmpty(_height) || String.IsNullOrEmpty(_depth))
         {
-            Debug.Log("Eksik girildi width height");
+            NullableMessage("Width, height or depth can not be nullable.");
+            return;
         }
 
         Size size = new Size();
@@ -36,7 +49,12 @@ public class InputManager : MonoBehaviour
             size.Height = height;
         }
 
-        gridManager.Draw(size.Width, size.Height);
+        if (int.TryParse(_depth, out int depth))
+        {
+            size.Depth = depth;
+        }
+
+        gridManager.Draw(size.Width, size.Height, size.Depth);
     }
 }
 
@@ -44,4 +62,5 @@ public class Size
 {
     public int Width { get; set; }
     public int Height { get; set; }
+    public int Depth { get; set; }
 }
