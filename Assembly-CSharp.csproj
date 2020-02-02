@@ -63,8 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BaseDots.cs" />
     <Compile Include="Assets\Scripts\GridManager.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Inputs.cs" />
+    <Compile Include="Assets\Scripts\TargetDots.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>G:/Projects/SpinalCord/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
